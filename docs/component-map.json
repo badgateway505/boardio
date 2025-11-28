@@ -1,0 +1,870 @@
+{
+    "version": 2,
+    "project": "Transact - Crypto Exchange Demo",
+    "generated": "2025-11-27",
+    "features": [
+        {
+            "id": "client_dropdown",
+            "label": "Client Selector",
+            "description": "Dropdown menu to select the active client organization. Resets user selection when the client changes.",
+            "tags": [
+                "ui",
+                "selection",
+                "multi-tenant",
+                "dropdown",
+                "client"
+            ],
+            "aliases": [
+                "client select",
+                "pick client",
+                "organization selector",
+                "client menu"
+            ],
+            "ui_files": [
+                "src/components/ClientSelector.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [],
+            "type_refs": [
+                "src/lib/types.ts::Client"
+            ],
+            "context_actions": [
+                "selectClient"
+            ],
+            "context_state": [
+                "selectedClientId",
+                "clients"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#client--user-management"
+            ]
+        },
+        {
+            "id": "user_dropdown",
+            "label": "User Selector",
+            "description": "Dropdown menu to select the active user within the selected client. Filters users by client ID.",
+            "tags": [
+                "ui",
+                "selection",
+                "multi-tenant",
+                "dropdown",
+                "user",
+                "account"
+            ],
+            "aliases": [
+                "user select",
+                "pick user",
+                "account selector",
+                "user menu",
+                "user list"
+            ],
+            "ui_files": [
+                "src/components/UserSelector.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [],
+            "type_refs": [
+                "src/lib/types.ts::User"
+            ],
+            "context_actions": [
+                "selectUser"
+            ],
+            "context_state": [
+                "selectedUserId",
+                "availableUsers"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#client--user-management"
+            ]
+        },
+        {
+            "id": "add_client_modal",
+            "label": "Add Client Modal",
+            "description": "Modal dialog for creating new client organizations with a name and ID.",
+            "tags": [
+                "ui",
+                "modal",
+                "create",
+                "multi-tenant",
+                "client",
+                "form"
+            ],
+            "aliases": [
+                "create client",
+                "new client",
+                "add organization",
+                "client creation"
+            ],
+            "ui_files": [
+                "src/components/AddClientModal.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [],
+            "type_refs": [
+                "src/lib/types.ts::Client"
+            ],
+            "context_actions": [
+                "addClient"
+            ],
+            "context_state": [
+                "clients"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#client--user-management"
+            ]
+        },
+        {
+            "id": "add_user_modal",
+            "label": "Add User Modal",
+            "description": "Modal dialog for creating new users under the selected client. Initializes the user with zero balances.",
+            "tags": [
+                "ui",
+                "modal",
+                "create",
+                "multi-tenant",
+                "user",
+                "form"
+            ],
+            "aliases": [
+                "create user",
+                "new user",
+                "add account",
+                "user creation"
+            ],
+            "ui_files": [
+                "src/components/AddUserModal.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [],
+            "type_refs": [
+                "src/lib/types.ts::User"
+            ],
+            "context_actions": [
+                "addUser"
+            ],
+            "context_state": [
+                "users"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#client--user-management"
+            ]
+        },
+        {
+            "id": "withdraw_form",
+            "label": "Withdraw Form",
+            "description": "Form for cryptocurrency withdrawal. Includes asset selection, amount input, recipient details, and 'To myself' toggle. Validates balances and processes Travel Rule.",
+            "tags": [
+                "ui",
+                "form",
+                "transaction",
+                "withdrawal",
+                "compliance",
+                "send",
+                "crypto"
+            ],
+            "aliases": [
+                "send crypto",
+                "withdrawal screen",
+                "withdraw money",
+                "transfer out",
+                "send form"
+            ],
+            "ui_files": [
+                "src/components/WithdrawForm.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [
+                "src/lib/services/balancesService.ts",
+                "src/lib/services/transactionsService.ts",
+                "src/lib/services/travelRuleService.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::TransactionDraft",
+                "src/lib/types.ts::AssetSymbol",
+                "src/lib/types.ts::WithdrawFormData"
+            ],
+            "context_actions": [
+                "submitWithdraw"
+            ],
+            "context_state": [
+                "currentUser",
+                "travelRuleMode"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#withdraw--deposit-operations",
+                "specs/spec.md#32-withdraw-flow"
+            ]
+        },
+        {
+            "id": "deposit_form",
+            "label": "Deposit Form",
+            "description": "Form for cryptocurrency deposit. Includes asset selection, amount, sender details, and transaction hash.",
+            "tags": [
+                "ui",
+                "form",
+                "transaction",
+                "deposit",
+                "receive",
+                "crypto"
+            ],
+            "aliases": [
+                "receive crypto",
+                "deposit screen",
+                "add funds",
+                "transfer in",
+                "receive form"
+            ],
+            "ui_files": [
+                "src/components/DepositForm.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [
+                "src/lib/services/transactionsService.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::TransactionDraft",
+                "src/lib/types.ts::AssetSymbol",
+                "src/lib/types.ts::DepositFormData"
+            ],
+            "context_actions": [
+                "submitDeposit"
+            ],
+            "context_state": [
+                "currentUser"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#withdraw--deposit-operations",
+                "specs/spec.md#33-deposit-flow"
+            ]
+        },
+        {
+            "id": "operation_toggle",
+            "label": "Operation Toggle",
+            "description": "Toggle switch to switch between Withdraw and Deposit transaction modes.",
+            "tags": [
+                "ui",
+                "toggle",
+                "transaction",
+                "navigation",
+                "switch"
+            ],
+            "aliases": [
+                "mode switch",
+                "withdraw deposit toggle",
+                "transaction type selector"
+            ],
+            "ui_files": [
+                "src/components/OperationToggle.tsx"
+            ],
+            "state_files": [],
+            "service_files": [],
+            "type_refs": [],
+            "context_actions": [],
+            "context_state": [],
+            "doc_refs": [
+                "docs/architecture-current.md#withdraw--deposit-operations"
+            ]
+        },
+        {
+            "id": "travel_rule",
+            "label": "Travel Rule Mode Toggle",
+            "description": "Toggle between API and SDK modes for Travel Rule compliance. Currently stub implementations that log payloads.",
+            "tags": [
+                "ui",
+                "compliance",
+                "travel-rule",
+                "toggle",
+                "settings",
+                "mode"
+            ],
+            "aliases": [
+                "travel rule switch",
+                "compliance mode",
+                "api sdk toggle",
+                "ivms101"
+            ],
+            "ui_files": [
+                "src/components/TravelRuleModeToggle.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [
+                "src/lib/services/travelRuleService.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::TravelRuleMode",
+                "src/lib/types.ts::TravelRulePayload",
+                "src/lib/types.ts::TravelRuleApiResult",
+                "src/lib/types.ts::TravelRuleSdkResult"
+            ],
+            "context_actions": [
+                "setTravelRuleMode"
+            ],
+            "context_state": [
+                "travelRuleMode"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#travel-rule-integration",
+                "specs/spec.md#34-travel-rule-mode-selection",
+                ".agent/workflows/add_travel_rule_integration.md"
+            ]
+        },
+        {
+            "id": "kyc_modal",
+            "label": "KYC Modal",
+            "description": "Modal for Sumsub KYC integration. Pushes user data to Sumsub API with fallback to mock response.",
+            "tags": [
+                "ui",
+                "modal",
+                "kyc",
+                "compliance",
+                "sumsub",
+                "verification",
+                "identity"
+            ],
+            "aliases": [
+                "verify user",
+                "identity verification",
+                "sumsub popup",
+                "kyc screen"
+            ],
+            "ui_files": [
+                "src/components/KycModal.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [
+                "src/lib/services/sumsubService.ts"
+            ],
+            "api_files": [
+                "src/api/sumsubApi.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::User"
+            ],
+            "context_actions": [],
+            "context_state": [
+                "currentUser"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#kyc-verification",
+                "specs/spec.md#35-kyc--sumsub-modal-flow",
+                "SUMSUB_INTEGRATION.md"
+            ],
+            "backend_refs": [
+                "backend-example/server.js",
+                "backend-example/sumsubBackend.ts"
+            ]
+        },
+        {
+            "id": "user_info_panel",
+            "label": "User Information Panel",
+            "description": "Displays selected user's full name, ID, and top 5 balances. Includes KYC action buttons.",
+            "tags": [
+                "ui",
+                "panel",
+                "user-profile",
+                "balances",
+                "dashboard",
+                "summary"
+            ],
+            "aliases": [
+                "user details",
+                "profile card",
+                "account summary",
+                "user dashboard"
+            ],
+            "ui_files": [
+                "src/components/UserInfoPanel.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [],
+            "type_refs": [
+                "src/lib/types.ts::User",
+                "src/lib/types.ts::AssetSymbol"
+            ],
+            "context_actions": [],
+            "context_state": [
+                "currentUser"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#balances--transaction-history"
+            ]
+        },
+        {
+            "id": "balances_panel",
+            "label": "Balances Panel",
+            "description": "Displays all cryptocurrency balances for the selected user in a table format.",
+            "tags": [
+                "ui",
+                "panel",
+                "balances",
+                "assets",
+                "wallet",
+                "holdings"
+            ],
+            "aliases": [
+                "wallet balance",
+                "asset list",
+                "crypto holdings",
+                "funds"
+            ],
+            "ui_files": [
+                "src/components/BalancesPanel.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [],
+            "type_refs": [
+                "src/lib/types.ts::User",
+                "src/lib/types.ts::AssetSymbol"
+            ],
+            "context_actions": [],
+            "context_state": [
+                "currentUser"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#balances--transaction-history"
+            ]
+        },
+        {
+            "id": "transaction_history",
+            "label": "Transaction History Table",
+            "description": "Paginated table displaying all transactions for the selected user with filtering and status indicators.",
+            "tags": [
+                "ui",
+                "table",
+                "transactions",
+                "history",
+                "activity",
+                "log"
+            ],
+            "aliases": [
+                "activity log",
+                "past transactions",
+                "transfer history",
+                "ledger"
+            ],
+            "ui_files": [
+                "src/components/TransactionHistoryTable.tsx"
+            ],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [
+                "src/lib/services/transactionsService.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::Transaction",
+                "src/lib/types.ts::TransactionType",
+                "src/lib/types.ts::TransactionStatus"
+            ],
+            "context_actions": [],
+            "context_state": [
+                "currentUserTransactions"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#balances--transaction-history"
+            ]
+        },
+        {
+            "id": "notifications",
+            "label": "Toast Notifications",
+            "description": "Toast notification system for success/error feedback. Auto-dismisses after timeout.",
+            "tags": [
+                "ui",
+                "notification",
+                "toast",
+                "feedback",
+                "alert",
+                "popup"
+            ],
+            "aliases": [
+                "alerts",
+                "popups",
+                "messages",
+                "snackbars"
+            ],
+            "ui_files": [
+                "src/components/Toast.tsx"
+            ],
+            "state_files": [],
+            "service_files": [],
+            "type_refs": [],
+            "context_actions": [],
+            "context_state": [],
+            "doc_refs": [
+                "docs/architecture-current.md#notifications"
+            ]
+        },
+        {
+            "id": "balance_service",
+            "label": "Balance Service",
+            "description": "Business logic for balance calculations, validation, and updates. Handles fee calculations and insufficient balance checks.",
+            "tags": [
+                "service",
+                "balances",
+                "validation",
+                "logic",
+                "fees"
+            ],
+            "aliases": [
+                "balance logic",
+                "fee calculator",
+                "fund manager"
+            ],
+            "ui_files": [],
+            "state_files": [],
+            "service_files": [
+                "src/lib/services/balancesService.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::User",
+                "src/lib/types.ts::AssetSymbol",
+                "src/lib/types.ts::TRANSACTION_FEES"
+            ],
+            "service_functions": [
+                "getAvailableBalance",
+                "hasSufficientBalance",
+                "updateBalance"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#balancesservicets"
+            ]
+        },
+        {
+            "id": "transaction_service",
+            "label": "Transaction Service",
+            "description": "Business logic for creating transaction records and filtering transactions by user.",
+            "tags": [
+                "service",
+                "transactions",
+                "logic",
+                "history",
+                "crud"
+            ],
+            "aliases": [
+                "transaction logic",
+                "history manager",
+                "transfer service"
+            ],
+            "ui_files": [],
+            "state_files": [],
+            "service_files": [
+                "src/lib/services/transactionsService.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::Transaction",
+                "src/lib/types.ts::TransactionDraft",
+                "src/lib/types.ts::TravelRuleMode"
+            ],
+            "service_functions": [
+                "createTransaction",
+                "getTransactionsForUser"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#transactionsservicets"
+            ]
+        },
+        {
+            "id": "travel_rule_service",
+            "label": "Travel Rule Service",
+            "description": "Stub implementation for Travel Rule compliance. Prepares payloads and routes to API or SDK mode.",
+            "tags": [
+                "service",
+                "compliance",
+                "travel-rule",
+                "stub",
+                "logic",
+                "ivms101"
+            ],
+            "aliases": [
+                "compliance service",
+                "travel rule logic",
+                "regulatory check"
+            ],
+            "ui_files": [],
+            "state_files": [],
+            "service_files": [
+                "src/lib/services/travelRuleService.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::TransactionDraft",
+                "src/lib/types.ts::TravelRuleMode",
+                "src/lib/types.ts::TravelRulePayload",
+                "src/lib/types.ts::TravelRuleApiResult",
+                "src/lib/types.ts::TravelRuleSdkResult"
+            ],
+            "service_functions": [
+                "preparePayload",
+                "submitViaApi",
+                "launchSdkFlow",
+                "processTravelRule"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#travelruleservicets",
+                ".agent/workflows/add_travel_rule_integration.md"
+            ]
+        },
+        {
+            "id": "sumsub_service",
+            "label": "Sumsub Service",
+            "description": "KYC-related helper functions for Sumsub integration.",
+            "tags": [
+                "service",
+                "kyc",
+                "sumsub",
+                "compliance",
+                "logic"
+            ],
+            "aliases": [
+                "kyc service",
+                "verification logic",
+                "sumsub helpers"
+            ],
+            "ui_files": [],
+            "state_files": [],
+            "service_files": [
+                "src/lib/services/sumsubService.ts"
+            ],
+            "api_files": [
+                "src/api/sumsubApi.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::User"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#sumsubservicets",
+                "SUMSUB_INTEGRATION.md"
+            ],
+            "backend_refs": [
+                "backend-example/server.js",
+                "backend-example/sumsubBackend.ts"
+            ]
+        },
+        {
+            "id": "app_state_provider",
+            "label": "App State Provider",
+            "description": "Global React Context provider managing all application state, computed values, and actions. Single source of truth for the app.",
+            "tags": [
+                "state",
+                "context",
+                "global",
+                "store",
+                "provider"
+            ],
+            "aliases": [
+                "global state",
+                "app context",
+                "store",
+                "state manager"
+            ],
+            "ui_files": [],
+            "state_files": [
+                "src/context/AppStateProvider.tsx"
+            ],
+            "service_files": [
+                "src/lib/services/balancesService.ts",
+                "src/lib/services/transactionsService.ts",
+                "src/lib/services/travelRuleService.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::Client",
+                "src/lib/types.ts::User",
+                "src/lib/types.ts::Transaction",
+                "src/lib/types.ts::TransactionDraft",
+                "src/lib/types.ts::TravelRuleMode"
+            ],
+            "context_state": [
+                "selectedClientId",
+                "selectedUserId",
+                "travelRuleMode",
+                "clients",
+                "users",
+                "transactions",
+                "currentUser",
+                "availableUsers",
+                "currentUserTransactions"
+            ],
+            "context_actions": [
+                "selectClient",
+                "selectUser",
+                "setTravelRuleMode",
+                "submitWithdraw",
+                "submitDeposit",
+                "addUser",
+                "addClient"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#state-management",
+                "docs/architecture-current.md#context-provider"
+            ]
+        },
+        {
+            "id": "type_system",
+            "label": "Type System",
+            "description": "Central TypeScript type definitions for all entities, enums, and constants.",
+            "tags": [
+                "types",
+                "typescript",
+                "core",
+                "interfaces",
+                "definitions"
+            ],
+            "aliases": [
+                "ts types",
+                "interfaces",
+                "models",
+                "schema"
+            ],
+            "ui_files": [],
+            "state_files": [],
+            "service_files": [],
+            "type_refs": [
+                "src/lib/types.ts::Client",
+                "src/lib/types.ts::User",
+                "src/lib/types.ts::Transaction",
+                "src/lib/types.ts::TransactionDraft",
+                "src/lib/types.ts::AssetSymbol",
+                "src/lib/types.ts::TravelRuleMode",
+                "src/lib/types.ts::TransactionType",
+                "src/lib/types.ts::TransactionStatus",
+                "src/lib/types.ts::WithdrawFormData",
+                "src/lib/types.ts::DepositFormData",
+                "src/lib/types.ts::TravelRulePayload",
+                "src/lib/types.ts::TravelRuleApiResult",
+                "src/lib/types.ts::TravelRuleSdkResult",
+                "src/lib/types.ts::ASSET_SYMBOLS",
+                "src/lib/types.ts::TRANSACTION_FEES"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#core-types"
+            ]
+        },
+        {
+            "id": "demo_data",
+            "label": "Demo Data Seed",
+            "description": "Seed data with 3 demo clients and 6 users with realistic balances for development and demos.",
+            "tags": [
+                "data",
+                "seed",
+                "demo",
+                "mock",
+                "fixtures"
+            ],
+            "aliases": [
+                "mock data",
+                "seed file",
+                "test data",
+                "fixtures"
+            ],
+            "ui_files": [],
+            "state_files": [],
+            "service_files": [],
+            "data_files": [
+                "src/lib/dataSeed.ts"
+            ],
+            "type_refs": [
+                "src/lib/types.ts::Client",
+                "src/lib/types.ts::User"
+            ],
+            "doc_refs": [
+                "docs/architecture-current.md#seed-data"
+            ]
+        }
+    ],
+    "architectural_layers": {
+        "ui_components": {
+            "description": "React components for user interface",
+            "directory": "src/components/",
+            "files": [
+                "src/components/AddClientModal.tsx",
+                "src/components/AddUserModal.tsx",
+                "src/components/BalancesPanel.tsx",
+                "src/components/ClientSelector.tsx",
+                "src/components/DepositForm.tsx",
+                "src/components/KycModal.tsx",
+                "src/components/OperationToggle.tsx",
+                "src/components/Toast.tsx",
+                "src/components/TransactionHistoryTable.tsx",
+                "src/components/TravelRuleModeToggle.tsx",
+                "src/components/UserInfoPanel.tsx",
+                "src/components/UserSelector.tsx",
+                "src/components/WithdrawForm.tsx"
+            ]
+        },
+        "state_management": {
+            "description": "React Context for global state",
+            "directory": "src/context/",
+            "files": [
+                "src/context/AppStateProvider.tsx"
+            ]
+        },
+        "business_logic": {
+            "description": "Service layer with pure functions",
+            "directory": "src/lib/services/",
+            "files": [
+                "src/lib/services/balancesService.ts",
+                "src/lib/services/sumsubService.ts",
+                "src/lib/services/transactionsService.ts",
+                "src/lib/services/travelRuleService.ts"
+            ]
+        },
+        "api_layer": {
+            "description": "API wrappers for backend communication",
+            "directory": "src/api/",
+            "files": [
+                "src/api/sumsubApi.ts"
+            ]
+        },
+        "type_definitions": {
+            "description": "TypeScript types and constants",
+            "directory": "src/lib/",
+            "files": [
+                "src/lib/types.ts"
+            ]
+        },
+        "data_layer": {
+            "description": "Seed data and mock data",
+            "directory": "src/lib/",
+            "files": [
+                "src/lib/dataSeed.ts"
+            ]
+        }
+    },
+    "flow_patterns": {
+        "ui_to_context_to_service": "Components → AppStateProvider actions → Service functions → Types",
+        "component_state_access": "Components use useAppContext() hook to access state and actions",
+        "service_purity": "Services are pure functions with no React hooks or side effects"
+    },
+    "documentation_index": {
+        "architecture": "docs/architecture-current.md",
+        "specification": "specs/spec.md",
+        "roadmap": "todo/roadmap.md",
+        "workflows": [
+            ".agent/workflows/update_form_feature.md",
+            ".agent/workflows/add_travel_rule_integration.md"
+        ],
+        "integration_guides": [
+            "SUMSUB_INTEGRATION.md"
+        ],
+        "rules": ".antigravity/rules.md"
+    }
+}
